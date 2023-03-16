@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200121124908_Categories.cs" />
+    <Compile Remove="Migrations\20200121124908_Categories.Designer.cs" />
+    <Compile Remove="Migrations\20200121130303_Categories.cs" />
+    <Compile Remove="Migrations\20200121130303_Categories.Designer.cs" />
+    <Compile Remove="Migrations\20200121131400_IdentityKey.cs" />
+    <Compile Remove="Migrations\20200121131400_IdentityKey.Designer.cs" />
+    <Compile Remove="Migrations\20200121145746_Test.cs" />
+    <Compile Remove="Migrations\20200121145746_Test.Designer.cs" />
+    <Compile Remove="Migrations\20200121151446_Test.cs" />
+    <Compile Remove="Migrations\20200121151446_Test.Designer.cs" />
+    <Compile Remove="Migrations\20200121151953_Test.cs" />
+    <Compile Remove="Migrations\20200121151953_Test.Designer.cs" />
+    <Compile Remove="Migrations\20200121152302_Test.cs" />
+    <Compile Remove="Migrations\20200121152302_Test.Designer.cs" />
+    <Compile Remove="Migrations\20200121154022_AddCascadeDeleteToCategory.cs" />
+    <Compile Remove="Migrations\20200121154022_AddCascadeDeleteToCategory.Designer.cs" />
+    <Compile Remove="Migrations\20200121154404_AddCascadeDeleteToCategory.cs" />
+    <Compile Remove="Migrations\20200121154404_AddCascadeDeleteToCategory.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Domain.Entities\Domain.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations" />
+  </ItemGroup>
+
+</Project>
