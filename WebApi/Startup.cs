@@ -36,6 +36,7 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseHealthChecks("/health");
 
             app.UseRouting();
 

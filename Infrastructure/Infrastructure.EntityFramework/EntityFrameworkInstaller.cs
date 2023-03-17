@@ -13,6 +13,10 @@ namespace Infrastructure.EntityFramework
                     //.UseLazyLoadingProxies() // lazy loading
                     .UseSqlite(connectionString));
                     //.UseSqlServer(connectionString));
+
+                    services.AddHealthChecks()
+                        .AddDbContextCheck<DatabaseContext>();
+
             return services;
         }
     }
