@@ -1,4 +1,6 @@
 using AutoMapper;
+using MassTransit;
+using MassTransit.RabbitMqTransport;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,13 @@ namespace WebApi
             services.AddControllers();
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
+            
+            services.AddMassTransit(x => {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    Configure(cfg);
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +89,21 @@ namespace WebApi
             });
             configuration.AssertConfigurationIsValid();
             return configuration;
+        }
+        
+        /// <summary>
+        /// КОнфигурирование
+        /// </summary>
+        /// <param name="configurator"></param>
+        private static void Configure(IRabbitMqBusFactoryConfigurator configurator)
+        {
+            configurator.Host("hawk.rmq.cloudamqp.com",  //TODO: вынести в конфигурауцию
+                "iatvfquz",
+                h =>
+                {
+                    h.Username("iatvfquz");
+                    h.Password("G68bk0zxzH0ncOvMlmfyYapLaCqwjiRi");
+                });
         }
     }
     
