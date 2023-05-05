@@ -42,7 +42,7 @@ namespace Infrastructure.Repositories.Implementations
                 .Skip((filterDto.Page - 1) * filterDto.ItemsPerPage)
                 .Take(filterDto.ItemsPerPage);
 
-            return await query.ToListAsync();
+            return query.ToList();
         }
 
         /// <summary>
