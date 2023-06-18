@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Services.Abstractions;
 using AutoMapper;
+using CommonNamespace;
 using Domain.Entities;
+using MassTransit;
 using Services.Contracts;
 
 namespace Services.Implementations
@@ -15,13 +17,16 @@ namespace Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly ILessonRepository _lessonRepository;
+        private readonly IBusControl _busControl;
 
         public LessonService(
             IMapper mapper,
-            ILessonRepository lessonRepository)
+            ILessonRepository lessonRepository,
+            IBusControl busControl)
         {
             _mapper = mapper;
             _lessonRepository = lessonRepository;
+            _busControl = busControl;
         }
 
         /// <summary>
@@ -58,7 +63,14 @@ namespace Services.Implementations
             entity.CourseId = lessonDto.CourseId;
             var res = await _lessonRepository.AddAsync(entity);
             await _lessonRepository.SaveChangesAsync();
+
+            await _busControl.Publish(new MessageDto
+            {
+                Content = $"Lesson {entity.Id} with subject {entity.Subject} is added"
+            });
+
             return res.Id;
+            
         }
 
         /// <summary>
