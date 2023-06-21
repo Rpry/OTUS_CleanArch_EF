@@ -2,6 +2,7 @@ using AutoMapper;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,6 +48,10 @@ namespace WebApi
 
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHealthChecks("/health");
+            app.UseHealthChecks("/db_ef_healthcheck", new HealthCheckOptions()
+            {
+                Predicate = healthCheck => healthCheck.Tags.Contains("db_ef_healthcheck") 
+            });
 
             app.UseRouting();
 

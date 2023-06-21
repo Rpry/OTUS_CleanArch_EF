@@ -15,9 +15,14 @@ namespace Infrastructure.EntityFramework
                     //.UseSqlServer(connectionString));
 
                     services.AddHealthChecks()
-                        .AddDbContextCheck<DatabaseContext>();
+                        .AddDbContextCheck<DatabaseContext>(
+                            tags: new[] { "db_ef_healthcheck" },
+                            customTestQuery: async (context, token) =>
+                            {
+                                return await context.Lessons.AnyAsync(token);
+                            });
 
-            return services;
+                    return services;
         }
     }
 }
