@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Services.Abstractions;
@@ -6,7 +7,7 @@ using AutoMapper;
 using CommonNamespace;
 using Domain.Entities;
 using MassTransit;
-using Services.Contracts;
+using Services.Contracts.Course;
 
 namespace Services.Implementations
 {
@@ -30,17 +31,6 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Получить постраничный список.
-        /// </summary>
-        /// <param name="filterDto"> ДТО фильтра. </param>
-        /// <returns> Список курсов. </returns>
-        public async Task<ICollection<CourseDto>> GetPaged(CourseFilterDto filterDto)
-        {
-            ICollection<Course> entities = await _courseRepository.GetPagedAsync(filterDto);
-            return _mapper.Map<ICollection<Course>, ICollection<CourseDto>>(entities);
-        }
-
-        /// <summary>
         /// Получить курс.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
@@ -54,30 +44,36 @@ namespace Services.Implementations
         /// <summary>
         /// Создать курс.
         /// </summary>
-        /// <param name="courseDto"> ДТО курса. </param>
+        /// <param name="creatingCourseDto"> ДТО создаваемого курса. </param>
         /// <returns> Идентификатор. </returns>
-        public async Task<int> Create(CourseDto courseDto)
+        public async Task<int> Create(CreatingCourseDto creatingCourseDto)
         {
-            var entity = _mapper.Map<CourseDto, Course>(courseDto);
-            var res = await _courseRepository.AddAsync(entity);
+            var course = _mapper.Map<CreatingCourseDto, Course>(creatingCourseDto);
+            var createdCourse = await _courseRepository.AddAsync(course);
             await _courseRepository.SaveChangesAsync();
             await _busControl.Publish(new MessageDto
             {
-                Content = $"Lesson {entity.Id} with name {entity.Name} is added"
+                Content = $"Lesson {createdCourse.Id} with name {createdCourse.Name} is added"
             });
-            return res.Id;
+            return createdCourse.Id;
         }
 
         /// <summary>
         /// Изменить курс.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
-        /// <param name="courseDto"> ДТО курса. </param>
-        public async Task Update(int id, CourseDto courseDto)
+        /// <param name="updatingCourseDto"> ДТО редактируемого курса. </param>
+        public async Task Update(int id, UpdatingCourseDto updatingCourseDto)
         {
-            var entity = _mapper.Map<CourseDto, Course>(courseDto);
-            entity.Id = id;
-            _courseRepository.Update(entity);
+            var course = await _courseRepository.GetAsync(id);
+            if (course == null)
+            {
+                throw new Exception($"Курс с идентфикатором {id} не найден");
+            }
+
+            course.Name = updatingCourseDto.Name;
+            course.Price = updatingCourseDto.Price;
+            _courseRepository.Update(course);
             await _courseRepository.SaveChangesAsync();
         }
 
@@ -90,6 +86,17 @@ namespace Services.Implementations
             var course = await _courseRepository.GetAsync(id);
             course.Deleted = true; 
             await _courseRepository.SaveChangesAsync();
+        }
+        
+        /// <summary>
+        /// Получить постраничный список.
+        /// </summary>
+        /// <param name="filterDto"> ДТО фильтра. </param>
+        /// <returns> Список курсов. </returns>
+        public async Task<ICollection<CourseDto>> GetPaged(CourseFilterDto filterDto)
+        {
+            ICollection<Course> entities = await _courseRepository.GetPagedAsync(filterDto);
+            return _mapper.Map<ICollection<Course>, ICollection<CourseDto>>(entities);
         }
     }
 }

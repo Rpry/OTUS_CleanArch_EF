@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
-using Services.Contracts;
+using Services.Contracts.Course;
 
 namespace Services.Repositories.Abstractions
 {

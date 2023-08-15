@@ -4,8 +4,8 @@ using Services.Abstractions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Services.Contracts;
-using WebApi.Models;
+using Services.Contracts.Lesson;
+using WebApi.Models.Lesson;
 
 namespace WebApi.Controllers
 {
@@ -32,15 +32,15 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(LessonModel lessonDto)
+        public async Task<IActionResult> Add(CreatingLessonModel creatingLessonDto)
         {
-            return Ok(await _service.Create(_mapper.Map<LessonDto>(lessonDto)));
+            return Ok(await _service.Create(_mapper.Map<CreatingLessonModel, CreatingLessonDto>(creatingLessonDto)));
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, LessonModel lessonDto)
+        public async Task<IActionResult> Edit(int id, UpdatingLessonModel creatingLessonDto)
         {
-            await _service.Update(id, _mapper.Map<LessonDto>(lessonDto));
+            await _service.Update(id, _mapper.Map<UpdatingLessonModel, UpdatingLessonDto>(creatingLessonDto));
             return Ok();
         }
         

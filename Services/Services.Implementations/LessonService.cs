@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Services.Abstractions;
@@ -6,7 +7,7 @@ using AutoMapper;
 using CommonNamespace;
 using Domain.Entities;
 using MassTransit;
-using Services.Contracts;
+using Services.Contracts.Lesson;
 
 namespace Services.Implementations
 {
@@ -30,18 +31,6 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Получить постраничный список уроков.
-        /// </summary>
-        /// <param name="page"> Номер страницы. </param>
-        /// <param name="pageSize"> Объем страницы. </param>
-        /// <returns> Страница уроков. </returns>
-        public async Task<ICollection<LessonDto>> GetPaged(int page, int pageSize)
-        {
-            ICollection<Lesson> entities = await _lessonRepository.GetPagedAsync(page, pageSize);
-            return _mapper.Map<ICollection<Lesson>, ICollection<LessonDto>>(entities);
-        }
-
-        /// <summary>
         /// Получить урок.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
@@ -55,21 +44,21 @@ namespace Services.Implementations
         /// <summary>
         /// Создать урок.
         /// </summary>
-        /// <param name="lessonDto"> ДТО урока. </param>
-        /// <returns> Идентификатор</returns>
-        public async Task<int> Create(LessonDto lessonDto)
+        /// <param name="creatingLessonDto"> ДТО урока. </param>
+        /// <returns> Идентификатор. </returns>
+        public async Task<int> Create(CreatingLessonDto creatingLessonDto)
         {
-            var entity = _mapper.Map<LessonDto, Lesson>(lessonDto);
-            entity.CourseId = lessonDto.CourseId;
-            var res = await _lessonRepository.AddAsync(entity);
+            var lesson = _mapper.Map<CreatingLessonDto, Lesson>(creatingLessonDto);
+            lesson.CourseId = creatingLessonDto.CourseId;
+            var createdLesson = await _lessonRepository.AddAsync(lesson);
             await _lessonRepository.SaveChangesAsync();
 
             await _busControl.Publish(new MessageDto
             {
-                Content = $"Lesson {entity.Id} with subject {entity.Subject} is added"
+                Content = $"Lesson {createdLesson.Id} with subject {createdLesson.Subject} is added"
             });
 
-            return res.Id;
+            return createdLesson.Id;
             
         }
 
@@ -77,12 +66,17 @@ namespace Services.Implementations
         /// Изменить урок.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
-        /// <param name="lessonDto"> ДТО урока. </param>
-        public async Task Update(int id, LessonDto lessonDto)
+        /// <param name="updatingLessonDto"> ДТО урока. </param>
+        public async Task Update(int id, UpdatingLessonDto updatingLessonDto)
         {
-            var entity = _mapper.Map<LessonDto, Lesson>(lessonDto);
-            entity.Id = id;
-            _lessonRepository.Update(entity);
+            var lesson = await _lessonRepository.GetAsync(id);
+            if (lesson == null)
+            {
+                throw new Exception($"Урок с id = {id} не найден");
+            }
+
+            lesson.Subject = updatingLessonDto.Subject;
+            _lessonRepository.Update(lesson);
             await _lessonRepository.SaveChangesAsync();
         }
 
@@ -95,6 +89,18 @@ namespace Services.Implementations
             var lesson = await _lessonRepository.GetAsync(id);
             lesson.Deleted = true; 
             await _lessonRepository.SaveChangesAsync();
+        }
+        
+        /// <summary>
+        /// Получить постраничный список уроков.
+        /// </summary>
+        /// <param name="page"> Номер страницы. </param>
+        /// <param name="pageSize"> Объем страницы. </param>
+        /// <returns> Страница уроков. </returns>
+        public async Task<ICollection<LessonDto>> GetPaged(int page, int pageSize)
+        {
+            ICollection<Lesson> entities = await _lessonRepository.GetPagedAsync(page, pageSize);
+            return _mapper.Map<ICollection<Lesson>, ICollection<LessonDto>>(entities);
         }
     }
 }

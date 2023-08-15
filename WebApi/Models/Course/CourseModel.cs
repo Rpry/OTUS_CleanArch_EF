@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Services.Contracts;
+using Services.Contracts.Lesson;
 
-namespace WebApi.Models
+namespace WebApi.Models.Course
 {
     /// <summary>
     /// Модель курса.

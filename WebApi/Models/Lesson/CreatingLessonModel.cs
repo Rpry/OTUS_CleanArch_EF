@@ -1,9 +1,6 @@
-﻿namespace Services.Contracts
+﻿namespace WebApi.Models.Lesson
 {
-    /// <summary>
-    /// ДТО урока.
-    /// </summary>
-    public class LessonDto
+    public class CreatingLessonModel
     {
         /// <summary>
         /// Идентификатор курса.

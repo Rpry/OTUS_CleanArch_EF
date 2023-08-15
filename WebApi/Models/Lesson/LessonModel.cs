@@ -1,11 +1,11 @@
-﻿namespace WebApi.Models
+﻿namespace WebApi.Models.Lesson
 {
     public class LessonModel
     {
         /// <summary>
-        /// Идентификатор курса.
+        /// Идентификатор.
         /// </summary>
-        public int CourseId { get; set; }
+        public int Id { get; set; }
         
         /// <summary>
         /// Тема.

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Services.Contracts;
+using Services.Contracts.Lesson;
 
 namespace Services.Abstractions
 {
@@ -9,14 +9,6 @@ namespace Services.Abstractions
     /// </summary>
     public interface ILessonService
     {
-        /// <summary>
-        /// Получить список уроков.
-        /// </summary>
-        /// <param name="page"> Номер страницы. </param>
-        /// <param name="pageSize"> Объем страницы. </param>
-        /// <returns> Страница уроков. </returns>
-        Task<ICollection<LessonDto>> GetPaged(int page, int pageSize);
-
         /// <summary>
         /// Получить урок. 
         /// </summary>
@@ -27,21 +19,29 @@ namespace Services.Abstractions
         /// <summary>
         /// Создать урок.
         /// </summary>
-        /// <param name="lessonDto"> ДТО урока. </param>
+        /// <param name="creatingLessonDto"> ДТО урока. </param>
         /// <returns> Идентификатор. </returns>
-        Task<int> Create(LessonDto lessonDto);
+        Task<int> Create(CreatingLessonDto creatingLessonDto);
 
         /// <summary>
         /// Изменить урок.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
-        /// <param name="lessonDto"> ДТО урока. </param>
-        Task Update(int id, LessonDto lessonDto);
+        /// <param name="updatingLessonDto"> ДТО урока. </param>
+        Task Update(int id, UpdatingLessonDto updatingLessonDto);
 
         /// <summary>
         /// Удалить урок.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
         Task Delete(int id);
+        
+        /// <summary>
+        /// Получить список уроков.
+        /// </summary>
+        /// <param name="page"> Номер страницы. </param>
+        /// <param name="pageSize"> Объем страницы. </param>
+        /// <returns> Страница уроков. </returns>
+        Task<ICollection<LessonDto>> GetPaged(int page, int pageSize);
     }
 }

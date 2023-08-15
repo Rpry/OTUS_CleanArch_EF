@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Services.Contracts;
+using Services.Contracts.Course;
 
 namespace Services.Abstractions
 {
@@ -9,13 +9,6 @@ namespace Services.Abstractions
     /// </summary>
     public interface ICourseService
     {
-        /// <summary>
-        /// Получить постраничный список.
-        /// </summary>
-        /// <param name="filterDto"> ДТО фильтра. </param>
-        /// <returns> Список курсов. </returns>
-        Task<ICollection<CourseDto>> GetPaged(CourseFilterDto filterDto);
-
         /// <summary>
         /// Получить курс.
         /// </summary>
@@ -26,20 +19,27 @@ namespace Services.Abstractions
         /// <summary>
         /// Создать курс.
         /// </summary>
-        /// <param name="courseDto"> ДТО курса. </param>
-        Task<int> Create(CourseDto courseDto);
+        /// <param name="creatingCourseDto"> ДТО создаваемого курса. </param>
+        Task<int> Create(CreatingCourseDto creatingCourseDto);
 
         /// <summary>
         /// Изменить курс.
         /// </summary>
         /// <param name="id"> Иентификатор. </param>
-        /// <param name="courseDto"> ДТО курса. </param>
-        Task Update(int id, CourseDto courseDto);
+        /// <param name="updatingCourseDto"> ДТО редактируемого курса. </param>
+        Task Update(int id, UpdatingCourseDto updatingCourseDto);
 
         /// <summary>
         /// Удалить курс.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
         Task Delete(int id);
+        
+        /// <summary>
+        /// Получить постраничный список.
+        /// </summary>
+        /// <param name="filterDto"> ДТО фильтра. </param>
+        /// <returns> Список курсов. </returns>
+        Task<ICollection<CourseDto>> GetPaged(CourseFilterDto filterDto);
     }
 }

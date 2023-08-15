@@ -1,4 +1,4 @@
-namespace WebApi.Models;
+namespace WebApi.Models.Course;
 
 public class CourseFilterModel
 {

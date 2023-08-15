@@ -1,4 +1,4 @@
-namespace Services.Contracts;
+namespace Services.Contracts.Course;
 
 public class CourseFilterDto
 {

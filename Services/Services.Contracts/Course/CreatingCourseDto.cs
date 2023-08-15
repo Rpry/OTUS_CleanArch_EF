@@ -1,17 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace Services.Contracts
+﻿namespace Services.Contracts.Course
 {
     /// <summary>
     /// ДТО курса.
     /// </summary>
-    public class CourseDto
+    public class CreatingCourseDto
     {
-        /// <summary>
-        /// Id.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Название.
         /// </summary>
@@ -21,10 +14,5 @@ namespace Services.Contracts
         /// Стоимость.
         /// </summary>
         public decimal Price { get; set; }
-
-        /// <summary>
-        /// Уроки.
-        /// </summary>
-        public List<LessonDto> Lessons { get; set; }
     }
 }

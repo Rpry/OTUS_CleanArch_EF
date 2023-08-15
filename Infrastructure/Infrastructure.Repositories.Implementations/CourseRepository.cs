@@ -5,7 +5,7 @@ using Services.Repositories.Abstractions;
 using Domain.Entities;
 using Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Services.Contracts;
+using Services.Contracts.Course;
 
 namespace Infrastructure.Repositories.Implementations
 {
@@ -25,8 +25,8 @@ namespace Infrastructure.Repositories.Implementations
         /// <returns> Список курсов. </returns>
         public async Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto)
         {
-            var query = GetAll().ToList().AsQueryable();
-
+            var query = GetAll()
+                .Include(c => c.Lessons).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filterDto.Name))
             {
                 query = query.Where(c => c.Name == filterDto.Name);
@@ -53,8 +53,8 @@ namespace Infrastructure.Repositories.Implementations
         {
             var query = Context.Set<Course>().AsQueryable();
             query = query
-                //.Include(c => c.Lessons)
-                .Where(c => c.Id == id);
+                .Include(c => c.Lessons)
+                .Where(c => c.Id == id && !c.Deleted);
 
             return query.SingleOrDefaultAsync();
         }
