@@ -3,32 +3,32 @@
 namespace Domain.Entities
 {
     /// <summary>
-    /// Модель курса
+    /// Курс.
     /// </summary>
     public class Course: IEntity<int>
     {
         /// <summary>
-        /// Идентификатор
+        /// Идентификатор.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Наименование
+        /// Наименование.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Стоимость
+        /// Стоимость.
         /// </summary>
         public decimal Price { get; set; }
 
         /// <summary>
-        /// Уроки
+        /// Уроки.
         /// </summary>
         public virtual List<Lesson> Lessons { get; set; }
         
         /// <summary>
-        /// Удалено
+        /// Удалено.
         /// </summary>
         public bool Deleted { get; set; }
     }

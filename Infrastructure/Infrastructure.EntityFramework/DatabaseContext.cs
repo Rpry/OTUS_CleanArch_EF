@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace Infrastructure.EntityFramework
 {
     /// <summary>
-    /// Контекст
+    /// Контекст.
     /// </summary>
     public class DatabaseContext : DbContext
     {
@@ -15,12 +15,12 @@ namespace Infrastructure.EntityFramework
         }
         
         /// <summary>
-        /// Курсы
+        /// Курсы.
         /// </summary>
         public DbSet<Course> Courses { get; set; }
         
         /// <summary>
-        /// Уроки
+        /// Уроки.
         /// </summary>
         public DbSet<Lesson> Lessons { get; set; }
 

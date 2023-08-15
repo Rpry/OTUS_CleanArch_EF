@@ -5,7 +5,7 @@ using Services.Contracts;
 namespace Services.Abstractions
 {
     /// <summary>
-    /// Cервис работы с курсами (интерфейс)
+    /// Интерфейс сервиса работы с курсами.
     /// </summary>
     public interface ICourseService
     {
@@ -17,29 +17,29 @@ namespace Services.Abstractions
         Task<ICollection<CourseDto>> GetPaged(CourseFilterDto filterDto);
 
         /// <summary>
-        /// Получить
+        /// Получить курс.
         /// </summary>
-        /// <param name="id">идентификатор</param>
-        /// <returns>ДТО курса</returns>
+        /// <param name="id"> Идентификатор. </param>
+        /// <returns> ДТО курса. </returns>
         Task<CourseDto> GetById(int id);
 
         /// <summary>
-        /// Создать
+        /// Создать курс.
         /// </summary>
-        /// <param name="courseDto">ДТО курса</para
+        /// <param name="courseDto"> ДТО курса. </param>
         Task<int> Create(CourseDto courseDto);
 
         /// <summary>
-        /// Изменить
+        /// Изменить курс.
         /// </summary>
-        /// <param name="id">идентификатор</param>
-        /// <param name="courseDto">ДТО курса</param>
+        /// <param name="id"> Иентификатор. </param>
+        /// <param name="courseDto"> ДТО курса. </param>
         Task Update(int id, CourseDto courseDto);
 
         /// <summary>
-        /// Удалить
+        /// Удалить курс.
         /// </summary>
-        /// <param name="id">идентификатор</param>
+        /// <param name="id"> Идентификатор. </param>
         Task Delete(int id);
     }
 }

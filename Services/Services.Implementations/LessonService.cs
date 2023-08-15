@@ -11,7 +11,7 @@ using Services.Contracts;
 namespace Services.Implementations
 {
     /// <summary>
-    /// Сервис работы с уроками
+    /// Сервис работы с уроками.
     /// </summary>
     public class LessonService : ILessonService
     {
@@ -30,11 +30,11 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Получить список
+        /// Получить постраничный список уроков.
         /// </summary>
-        /// <param name="page">номер страницы</param>
-        /// <param name="pageSize">объем страницы</param>
-        /// <returns></returns>
+        /// <param name="page"> Номер страницы. </param>
+        /// <param name="pageSize"> Объем страницы. </param>
+        /// <returns> Страница уроков. </returns>
         public async Task<ICollection<LessonDto>> GetPaged(int page, int pageSize)
         {
             ICollection<Lesson> entities = await _lessonRepository.GetPagedAsync(page, pageSize);
@@ -42,10 +42,10 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Получить
+        /// Получить урок.
         /// </summary>
-        /// <param name="id">идентификатор</param>
-        /// <returns>ДТО урока</returns>
+        /// <param name="id"> Идентификатор. </param>
+        /// <returns> ДТО урока. </returns>
         public async Task<LessonDto> GetById(int id)
         {
             var lesson = await _lessonRepository.GetAsync(id);
@@ -53,10 +53,10 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Создать
+        /// Создать урок.
         /// </summary>
-        /// <param name="lessonDto">ДТО урока</param>
-        /// <returns>идентификатор</returns>
+        /// <param name="lessonDto"> ДТО урока. </param>
+        /// <returns> Идентификатор</returns>
         public async Task<int> Create(LessonDto lessonDto)
         {
             var entity = _mapper.Map<LessonDto, Lesson>(lessonDto);
@@ -74,10 +74,10 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Изменить
+        /// Изменить урок.
         /// </summary>
-        /// <param name="id">идентификатор</param>
-        /// <param name="lessonDto">ДТО урока</param>
+        /// <param name="id"> Идентификатор. </param>
+        /// <param name="lessonDto"> ДТО урока. </param>
         public async Task Update(int id, LessonDto lessonDto)
         {
             var entity = _mapper.Map<LessonDto, Lesson>(lessonDto);
@@ -87,9 +87,9 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Удалить
+        /// Удалить урок.
         /// </summary>
-        /// <param name="id">идентификатор</param>
+        /// <param name="id"> Идентификатор. </param>
         public async Task Delete(int id)
         {
             var lesson = await _lessonRepository.GetAsync(id);

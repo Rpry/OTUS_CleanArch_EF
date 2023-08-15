@@ -11,7 +11,7 @@ using Services.Contracts;
 namespace Services.Implementations
 {
     /// <summary>
-    /// Cервис работы с курсами
+    /// Cервис работы с курсами.
     /// </summary>
     public class CourseService : ICourseService
     {
@@ -41,10 +41,10 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Получить
+        /// Получить курс.
         /// </summary>
-        /// <param name="id">идентификатор</param>
-        /// <returns>ДТО курса</returns>
+        /// <param name="id"> Идентификатор. </param>
+        /// <returns> ДТО курса. </returns>
         public async Task<CourseDto> GetById(int id)
         {
             var course = await _courseRepository.GetAsync(id);
@@ -52,10 +52,10 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Создать
+        /// Создать курс.
         /// </summary>
-        /// <param name="courseDto">ДТО курса</param>
-        /// <returns>идентификатор</returns>
+        /// <param name="courseDto"> ДТО курса. </param>
+        /// <returns> Идентификатор. </returns>
         public async Task<int> Create(CourseDto courseDto)
         {
             var entity = _mapper.Map<CourseDto, Course>(courseDto);
@@ -69,10 +69,10 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Изменить
+        /// Изменить курс.
         /// </summary>
-        /// <param name="id">идентификатор</param>
-        /// <param name="courseDto">ДТО курса</param>
+        /// <param name="id"> Идентификатор. </param>
+        /// <param name="courseDto"> ДТО курса. </param>
         public async Task Update(int id, CourseDto courseDto)
         {
             var entity = _mapper.Map<CourseDto, Course>(courseDto);
@@ -82,9 +82,9 @@ namespace Services.Implementations
         }
 
         /// <summary>
-        /// Удалить
+        /// Удалить курс.
         /// </summary>
-        /// <param name="id">идентификатор</param>
+        /// <param name="id"> Идентификатор. </param>
         public async Task Delete(int id)
         {
             var course = await _courseRepository.GetAsync(id);

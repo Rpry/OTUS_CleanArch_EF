@@ -53,6 +53,11 @@ namespace WebApi
                 Predicate = healthCheck => healthCheck.Tags.Contains("db_ef_healthcheck") 
             });
 
+            app.UseHealthChecks("/db_ef_healthchecks", new HealthCheckOptions
+            {
+                Predicate = healthCheck => healthCheck.Tags.Contains("db_ef_healthchecks")
+            });
+            
             app.UseRouting();
 
             app.UseAuthorization();
@@ -98,7 +103,7 @@ namespace WebApi
         }
         
         /// <summary>
-        /// КОнфигурирование
+        /// Конфигурирование.
         /// </summary>
         /// <param name="configurator"></param>
         private static void Configure(IRabbitMqBusFactoryConfigurator configurator)

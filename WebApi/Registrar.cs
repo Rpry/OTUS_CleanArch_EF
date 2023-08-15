@@ -10,7 +10,7 @@ using WebApi.Settings;
 namespace WebApi
 {
     /// <summary>
-    /// Регистратор сервиса
+    /// Регистратор сервиса.
     /// </summary>
     public static class Registrar
     {

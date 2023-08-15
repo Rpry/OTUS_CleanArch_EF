@@ -10,7 +10,7 @@ using Services.Contracts;
 namespace Infrastructure.Repositories.Implementations
 {
     /// <summary>
-    /// Репозиторий работы с курсами
+    /// Репозиторий работы с курсами.
     /// </summary>
     public class CourseRepository: Repository<Course, int>, ICourseRepository 
     {
@@ -25,7 +25,6 @@ namespace Infrastructure.Repositories.Implementations
         /// <returns> Список курсов. </returns>
         public async Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto)
         {
-            
             var query = GetAll().ToList().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filterDto.Name))
@@ -42,14 +41,14 @@ namespace Infrastructure.Repositories.Implementations
                 .Skip((filterDto.Page - 1) * filterDto.ItemsPerPage)
                 .Take(filterDto.ItemsPerPage);
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
         /// <summary>
-        /// Получить сущность по ID
+        /// Получить сущность по ID.
         /// </summary>
-        /// <param name="id">ID сущности</param>
-        /// <returns>сущность</returns>
+        /// <param name="id"> Id сущности. </param>
+        /// <returns> Курс. </returns>
         public override Task<Course> GetAsync(int id)
         {
             var query = Context.Set<Course>().AsQueryable();

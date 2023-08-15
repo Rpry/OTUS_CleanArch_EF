@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Repositories.Implementations
 {
     /// <summary>
-    /// Репозиторий работы с уроками
+    /// Репозиторий работы с уроками.
     /// </summary>
     public class LessonRepository: Repository<Lesson, int>, ILessonRepository 
     {

@@ -1,32 +1,30 @@
-﻿using System;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     /// <summary>
-    /// Модель урока
+    /// Урок.
     /// </summary>
     public class Lesson: IEntity<int>
     {
         /// <summary>
-        /// Идентификатор
+        /// Идентификатор.
         /// </summary>
         public int Id { get; set; }
         
-        /// <summary> Тема </summary>
+        /// <summary> Тема. </summary>
         public string Subject { get; set; }
         
         /// <summary>
-        /// Курс
+        /// Курс.
         /// </summary>
         public virtual Course Course { get; set; }
         
         /// <summary>
-        /// Id курса
+        /// Id курса.
         /// </summary>
         public int CourseId { get; set; }
         
         /// <summary>
-        /// Удалено
+        /// Удалено.
         /// </summary>
         public bool Deleted { get; set; }
         
