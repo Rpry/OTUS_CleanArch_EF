@@ -18,7 +18,7 @@ namespace Infrastructure.Repositories.Implementations
         }
         
         /// <summary>
-        /// Получить сущность по ID.
+        /// Получить сущность по Id.
         /// </summary>
         /// <param name="id"> Id сущности. </param>
         /// <returns> Курс. </returns>
@@ -33,7 +33,7 @@ namespace Infrastructure.Repositories.Implementations
         
         public async Task<List<Lesson>> GetPagedAsync(int page, int itemsPerPage)
         {
-            var query = GetAll();
+            var query = GetAll().Where(l => !l.Deleted);
             return await query
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)

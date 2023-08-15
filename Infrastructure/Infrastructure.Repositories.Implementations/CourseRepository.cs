@@ -19,6 +19,21 @@ namespace Infrastructure.Repositories.Implementations
         }
 
         /// <summary>
+        /// Получить сущность по ID.
+        /// </summary>
+        /// <param name="id"> Id сущности. </param>
+        /// <returns> Курс. </returns>
+        public override Task<Course> GetAsync(int id)
+        {
+            var query = Context.Set<Course>().AsQueryable();
+            query = query
+                .Include(c => c.Lessons)
+                .Where(c => c.Id == id && !c.Deleted);
+
+            return query.SingleOrDefaultAsync();
+        }
+        
+        /// <summary>
         /// Получить постраничный список.
         /// </summary>
         /// <param name="filterDto"> ДТО фильтра. </param>
@@ -26,6 +41,7 @@ namespace Infrastructure.Repositories.Implementations
         public async Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto)
         {
             var query = GetAll()
+                .Where(c => !c.Deleted)
                 .Include(c => c.Lessons).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filterDto.Name))
             {
@@ -42,21 +58,6 @@ namespace Infrastructure.Repositories.Implementations
                 .Take(filterDto.ItemsPerPage);
 
             return await query.ToListAsync();
-        }
-
-        /// <summary>
-        /// Получить сущность по ID.
-        /// </summary>
-        /// <param name="id"> Id сущности. </param>
-        /// <returns> Курс. </returns>
-        public override Task<Course> GetAsync(int id)
-        {
-            var query = Context.Set<Course>().AsQueryable();
-            query = query
-                .Include(c => c.Lessons)
-                .Where(c => c.Id == id && !c.Deleted);
-
-            return query.SingleOrDefaultAsync();
         }
     }
 }
