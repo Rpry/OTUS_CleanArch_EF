@@ -1,47 +1,47 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Services.Contracts;
+using Services.Contracts.Lesson;
 
 namespace Services.Abstractions
 {
     /// <summary>
-    /// Сервис работы с уроками (интерфейс)
+    /// Интерфейс сервиса работы с уроками.
     /// </summary>
     public interface ILessonService
     {
         /// <summary>
-        /// Получить список
+        /// Получить урок. 
         /// </summary>
-        /// <param name="page">номер страницы</param>
-        /// <param name="pageSize">объем страницы</param>
-        /// <returns></returns>
-        Task<ICollection<LessonDto>> GetPaged(int page, int pageSize);
-
-        /// <summary>
-        /// Получить
-        /// </summary>
-        /// <param name="id">идентификатор</param>
-        /// <returns>ДТО урока</returns>
+        /// <param name="id"> Идентификатор. </param>
+        /// <returns> ДТО урока. </returns>
         Task<LessonDto> GetById(int id);
 
         /// <summary>
-        /// Создать
+        /// Создать урок.
         /// </summary>
-        /// <param name="lessonDto">ДТО урока</param>
-        /// <returns>идентификатор</returns>
-        Task<int> Create(LessonDto advertisementDto);
+        /// <param name="creatingLessonDto"> ДТО урока. </param>
+        /// <returns> Идентификатор. </returns>
+        Task<int> Create(CreatingLessonDto creatingLessonDto);
 
         /// <summary>
-        /// Изменить
+        /// Изменить урок.
         /// </summary>
-        /// <param name="id">идентификатор</param>
-        /// <param name="lessonDto">ДТО урока</param>
-        Task Update(int id, LessonDto advertisementDto);
+        /// <param name="id"> Идентификатор. </param>
+        /// <param name="updatingLessonDto"> ДТО урока. </param>
+        Task Update(int id, UpdatingLessonDto updatingLessonDto);
 
         /// <summary>
-        /// Удалить
+        /// Удалить урок.
         /// </summary>
-        /// <param name="id">идентификатор</param>
+        /// <param name="id"> Идентификатор. </param>
         Task Delete(int id);
+        
+        /// <summary>
+        /// Получить список уроков.
+        /// </summary>
+        /// <param name="page"> Номер страницы. </param>
+        /// <param name="pageSize"> Объем страницы. </param>
+        /// <returns> Страница уроков. </returns>
+        Task<ICollection<LessonDto>> GetPaged(int page, int pageSize);
     }
 }

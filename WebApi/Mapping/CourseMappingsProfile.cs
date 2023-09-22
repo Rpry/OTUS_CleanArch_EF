@@ -1,6 +1,6 @@
 using AutoMapper;
-using Services.Contracts;
-using WebApi.Models;
+using Services.Contracts.Course;
+using WebApi.Models.Course;
 
 namespace WebApi.Mapping
 {
@@ -13,7 +13,8 @@ namespace WebApi.Mapping
         {
             CreateMap<CourseDto, CourseModel>();
             CreateMap<CourseModel, CourseDto>();
-            
+            CreateMap<CreatingCourseModel, CreatingCourseDto>();
+            CreateMap<UpdatingCourseModel, UpdatingCourseDto>();
             CreateMap<CourseFilterModel, CourseFilterDto>();
         }
     }

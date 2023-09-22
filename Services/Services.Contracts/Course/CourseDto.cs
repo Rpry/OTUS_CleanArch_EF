@@ -1,30 +1,30 @@
 ﻿using System.Collections.Generic;
-using Services.Contracts;
+using Services.Contracts.Lesson;
 
-namespace WebApi.Models
+namespace Services.Contracts.Course
 {
     /// <summary>
-    /// ДТО курса
+    /// ДТО курса.
     /// </summary>
-    public class CourseModel
+    public class CourseDto
     {
         /// <summary>
-        /// Id
+        /// Id.
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
-        /// Название
+        /// Название.
         /// </summary>
         public string Name { get; set; }
         
         /// <summary>
-        /// Стоимость
+        /// Стоимость.
         /// </summary>
         public decimal Price { get; set; }
 
         /// <summary>
-        /// Уроки
+        /// Уроки.
         /// </summary>
         public List<LessonDto> Lessons { get; set; }
     }

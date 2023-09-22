@@ -5,12 +5,12 @@ using Services.Repositories.Abstractions;
 using Domain.Entities;
 using Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Services.Contracts;
+using Services.Contracts.Course;
 
 namespace Infrastructure.Repositories.Implementations
 {
     /// <summary>
-    /// Репозиторий работы с курсами
+    /// Репозиторий работы с курсами.
     /// </summary>
     public class CourseRepository: Repository<Course, int>, ICourseRepository 
     {
@@ -19,14 +19,30 @@ namespace Infrastructure.Repositories.Implementations
         }
 
         /// <summary>
+        /// Получить сущность по ID.
+        /// </summary>
+        /// <param name="id"> Id сущности. </param>
+        /// <returns> Курс. </returns>
+        public override Task<Course> GetAsync(int id)
+        {
+            var query = Context.Set<Course>().AsQueryable();
+            query = query
+                .Include(c => c.Lessons)
+                .Where(c => c.Id == id && !c.Deleted);
+
+            return query.SingleOrDefaultAsync();
+        }
+        
+        /// <summary>
         /// Получить постраничный список.
         /// </summary>
         /// <param name="filterDto"> ДТО фильтра. </param>
         /// <returns> Список курсов. </returns>
         public async Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto)
         {
-            var query = GetAll().ToList().AsQueryable();
-
+            var query = GetAll()
+                .Where(c => !c.Deleted)
+                .Include(c => c.Lessons).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filterDto.Name))
             {
                 query = query.Where(c => c.Name == filterDto.Name);
@@ -41,22 +57,7 @@ namespace Infrastructure.Repositories.Implementations
                 .Skip((filterDto.Page - 1) * filterDto.ItemsPerPage)
                 .Take(filterDto.ItemsPerPage);
 
-            return query.ToList();
-        }
-
-        /// <summary>
-        /// Получить сущность по ID
-        /// </summary>
-        /// <param name="id">ID сущности</param>
-        /// <returns>сущность</returns>
-        public override Task<Course> GetAsync(int id)
-        {
-            var query = Context.Set<Course>().AsQueryable();
-            query = query
-                //.Include(c => c.Lessons)
-                .Where(c => c.Id == id);
-
-            return query.SingleOrDefaultAsync();
+            return await query.ToListAsync();
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿namespace Services.Contracts
+﻿namespace WebApi.Models.Lesson
 {
-    public class LessonDto
+    public class CreatingLessonModel
     {
         /// <summary>
-        /// Идентификатор курса
+        /// Идентификатор курса.
         /// </summary>
         public int CourseId { get; set; }
         
         /// <summary>
-        /// Тема
+        /// Тема.
         /// </summary>
         public string Subject { get; set; }
     }

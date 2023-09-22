@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Repositories.Implementations
 {
     /// <summary>
-    /// Репозиторий работы с уроками
+    /// Репозиторий работы с уроками.
     /// </summary>
     public class LessonRepository: Repository<Lesson, int>, ILessonRepository 
     {
@@ -17,9 +17,23 @@ namespace Infrastructure.Repositories.Implementations
         {
         }
         
+        /// <summary>
+        /// Получить сущность по Id.
+        /// </summary>
+        /// <param name="id"> Id сущности. </param>
+        /// <returns> Курс. </returns>
+        public override Task<Lesson> GetAsync(int id)
+        {
+            var query = Context.Set<Lesson>().AsQueryable();
+            query = query
+                .Where(l => l.Id == id && !l.Deleted);
+
+            return query.SingleOrDefaultAsync();
+        }
+        
         public async Task<List<Lesson>> GetPagedAsync(int page, int itemsPerPage)
         {
-            var query = GetAll();
+            var query = GetAll().Where(l => !l.Deleted);
             return await query
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)

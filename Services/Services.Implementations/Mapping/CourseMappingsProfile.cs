@@ -1,6 +1,6 @@
 using AutoMapper;
 using Domain.Entities;
-using Services.Contracts;
+using Services.Contracts.Course;
 
 namespace Services.Implementations.Mapping
 {
@@ -13,7 +13,12 @@ namespace Services.Implementations.Mapping
         {
             CreateMap<Course, CourseDto>();
             
-            CreateMap<CourseDto, Course>()
+            CreateMap<CreatingCourseDto, Course>()
+                .ForMember(d => d.Id, map => map.Ignore())
+                .ForMember(d => d.Deleted, map => map.Ignore())
+                .ForMember(d => d.Lessons, map => map.Ignore());
+            
+            CreateMap<UpdatingCourseDto, Course>()
                 .ForMember(d => d.Id, map => map.Ignore())
                 .ForMember(d => d.Deleted, map => map.Ignore())
                 .ForMember(d => d.Lessons, map => map.Ignore());

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
-using Services.Contracts;
+using Services.Contracts.Course;
 
 namespace Services.Repositories.Abstractions
 {
     /// <summary>
-    /// Репозиторий работы с уроками
+    /// Репозиторий работы с уроками.
     /// </summary>
     public interface ICourseRepository: IRepository<Course, int>
     {

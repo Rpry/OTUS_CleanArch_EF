@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApi.Mapping;
+using WebApi.Settings;
 
 namespace WebApi
 {
@@ -18,7 +19,7 @@ namespace WebApi
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -32,7 +33,7 @@ namespace WebApi
             services.AddMassTransit(x => {
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    Configure(cfg);
+                    ConfigureRmq(cfg, Configuration);
                 });
             });
             services.AddCors();
@@ -48,7 +49,7 @@ namespace WebApi
 
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHealthChecks("/health");
-            app.UseHealthChecks("/db_ef_healthcheck", new HealthCheckOptions()
+            app.UseHealthChecks("/db_ef_healthcheck", new HealthCheckOptions
             {
                 Predicate = healthCheck => healthCheck.Tags.Contains("db_ef_healthcheck") 
             });
@@ -96,21 +97,22 @@ namespace WebApi
             configuration.AssertConfigurationIsValid();
             return configuration;
         }
-        
+
         /// <summary>
-        /// КОнфигурирование
+        /// Конфигурирование RMQ.
         /// </summary>
-        /// <param name="configurator"></param>
-        private static void Configure(IRabbitMqBusFactoryConfigurator configurator)
+        /// <param name="configurator"> Конфигуратор RMQ. </param>
+        /// <param name="configuration"> Конфигурация приложения. </param>
+        private static void ConfigureRmq(IRabbitMqBusFactoryConfigurator configurator, IConfiguration configuration)
         {
-            configurator.Host("hawk.rmq.cloudamqp.com",  //TODO: вынести в конфигурауцию
-                "iatvfquz",
+            var rmqSettings = configuration.Get<ApplicationSettings>().RmqSettings;
+            configurator.Host(rmqSettings.Host,
+                rmqSettings.VHost,
                 h =>
                 {
-                    h.Username("iatvfquz");
-                    h.Password("G68bk0zxzH0ncOvMlmfyYapLaCqwjiRi");
+                    h.Username(rmqSettings.Login);
+                    h.Password(rmqSettings.Password);
                 });
         }
     }
-    
 }
