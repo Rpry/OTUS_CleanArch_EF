@@ -25,7 +25,6 @@ namespace Infrastructure.Repositories.Implementations
         /// <returns> Список курсов. </returns>
         public async Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto)
         {
-            
             var query = GetAll().ToList().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filterDto.Name))

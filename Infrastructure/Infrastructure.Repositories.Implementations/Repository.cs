@@ -78,10 +78,10 @@ namespace Infrastructure.Repositories.Implementations
         #region Create
 
         /// <summary>
-        /// Добавить в базу одну сущность
+        /// Добавить в базу сущность.
         /// </summary>
-        /// <param name="entity">сущность для добавления</param>
-        /// <returns>добавленная сущность</returns>
+        /// <param name="entity"> Cущность для добавления. </param>
+        /// <returns> Добавленная сущность. </returns>
         public virtual T Add(T entity)
         {
             var objToReturn = _entitySet.Add(entity);

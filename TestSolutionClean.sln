@@ -3,6 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{BEB722CA-C4E0-4E1B-8536-071D183D5DD7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DD04A90B-59BA-4453-A47D-029C3CA2B335}"
+	ProjectSection(SolutionItems) = preProject
+		Infrastructure\LocalDatabase.db = Infrastructure\LocalDatabase.db
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{C2D75D42-4C3F-4B52-8F4B-5D70DC304DC4}"
 EndProject
@@ -23,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Repositories.Abstractions", "Services\Services.Repositories.Abstractions\Services.Repositories.Abstractions.csproj", "{B2BEE245-9B42-4486-A031-1F5C869AF848}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EntityFramework", "Infrastructure\Infrastructure.EntityFramework\Infrastructure.EntityFramework.csproj", "{7FA2A220-4693-4837-930B-E46FDB4C132E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.UnitTests", "Infrastructure\Services.UnitTests\Services.UnitTests.csproj", "{B2D39D35-4029-4130-B7FF-759F9B8DE215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +67,10 @@ Global
 		{7FA2A220-4693-4837-930B-E46FDB4C132E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA2A220-4693-4837-930B-E46FDB4C132E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FA2A220-4693-4837-930B-E46FDB4C132E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D39D35-4029-4130-B7FF-759F9B8DE215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D39D35-4029-4130-B7FF-759F9B8DE215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D39D35-4029-4130-B7FF-759F9B8DE215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D39D35-4029-4130-B7FF-759F9B8DE215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BEB722CA-C4E0-4E1B-8536-071D183D5DD7} = {C2D75D42-4C3F-4B52-8F4B-5D70DC304DC4}
@@ -72,5 +81,6 @@ Global
 		{DCFFFDD1-A39E-4C22-BDF7-727052812AF3} = {BDCE4DE9-7199-42EF-BF47-B620CD97D578}
 		{B2BEE245-9B42-4486-A031-1F5C869AF848} = {BDCE4DE9-7199-42EF-BF47-B620CD97D578}
 		{7FA2A220-4693-4837-930B-E46FDB4C132E} = {DD04A90B-59BA-4453-A47D-029C3CA2B335}
+		{B2D39D35-4029-4130-B7FF-759F9B8DE215} = {DD04A90B-59BA-4453-A47D-029C3CA2B335}
 	EndGlobalSection
 EndGlobal
