@@ -59,7 +59,6 @@ namespace Services.Implementations
             });
 
             return createdLesson.Id;
-            
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain.Entities;
@@ -6,20 +7,42 @@ using Domain.Entities;
 namespace Services.Repositories.Abstractions
 {
     /// <summary>
-    /// Базовый интерфейс всех репозиториев.
-    /// </summary>
-    public interface IRepository
-    {
-    }
-
-    /// <summary>
     /// Описания общих методов для всех репозиториев.
     /// </summary>
     /// <typeparam name="T"> Тип Entity для репозитория. </typeparam>
     /// <typeparam name="TPrimaryKey"> Тип первичного ключа. </typeparam>
-    public interface IRepository<T, TPrimaryKey> : IReadRepository<T, TPrimaryKey>
+    public interface IRepository<T, TPrimaryKey>  
         where T : IEntity<TPrimaryKey>
     {
+        /// <summary>
+        /// Запросить все сущности в базе.
+        /// </summary>
+        /// <param name="noTracking"> Вызвать с AsNoTracking.</param>
+        /// <returns> IQueryable массив сущностей.</returns>
+        IQueryable<T> GetAll(bool noTracking = false);
+
+        /// <summary>
+        /// Запросить все сущности в базе.
+        /// </summary>
+        /// <param name="cancellationToken"> Токен отмены. </param>
+        /// <param name="asNoTracking"> Вызвать с AsNoTracking. </param>
+        /// <returns> Список сущностей. </returns>
+        Task<List<T>> GetAllAsync(CancellationToken cancellationToken, bool asNoTracking = false);
+
+        /// <summary>
+        /// Получить сущность по Id.
+        /// </summary>
+        /// <param name="id"> Id сущности. </param>
+        /// <returns> Cущность. </returns>
+        T Get(TPrimaryKey id);
+
+        /// <summary>
+        /// Получить сущность по Id.
+        /// </summary>
+        /// <param name="id"> Id сущности. </param>
+        /// <returns> Cущность. </returns>
+        Task<T> GetAsync(TPrimaryKey id);
+        
         /// <summary>
         /// Удалить сущность.
         /// </summary>
