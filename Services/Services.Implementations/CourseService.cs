@@ -35,7 +35,7 @@ namespace Services.Implementations
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
         /// <returns> ДТО курса. </returns>
-        public async Task<CourseDto> GetById(int id)
+        public async Task<CourseDto> GetByIdAsync(int id)
         {
             var course = await _courseRepository.GetAsync(id);
             return _mapper.Map<Course, CourseDto>(course);
@@ -46,14 +46,14 @@ namespace Services.Implementations
         /// </summary>
         /// <param name="creatingCourseDto"> ДТО создаваемого курса. </param>
         /// <returns> Идентификатор. </returns>
-        public async Task<int> Create(CreatingCourseDto creatingCourseDto)
+        public async Task<int> CreateAsync(CreatingCourseDto creatingCourseDto)
         {
             var course = _mapper.Map<CreatingCourseDto, Course>(creatingCourseDto);
             var createdCourse = await _courseRepository.AddAsync(course);
             await _courseRepository.SaveChangesAsync();
             await _busControl.Publish(new MessageDto
             {
-                Content = $"Lesson {createdCourse.Id} with name {createdCourse.Name} is added"
+                Content = $"Course {createdCourse.Id} with name {createdCourse.Name} is added"
             });
             return createdCourse.Id;
         }
@@ -63,7 +63,7 @@ namespace Services.Implementations
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
         /// <param name="updatingCourseDto"> ДТО редактируемого курса. </param>
-        public async Task Update(int id, UpdatingCourseDto updatingCourseDto)
+        public async Task UpdateAsync(int id, UpdatingCourseDto updatingCourseDto)
         {
             var course = await _courseRepository.GetAsync(id);
             if (course == null)
@@ -81,7 +81,7 @@ namespace Services.Implementations
         /// Удалить курс.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var course = await _courseRepository.GetAsync(id);
             course.Deleted = true; 
@@ -93,7 +93,7 @@ namespace Services.Implementations
         /// </summary>
         /// <param name="filterDto"> ДТО фильтра. </param>
         /// <returns> Список курсов. </returns>
-        public async Task<ICollection<CourseDto>> GetPaged(CourseFilterDto filterDto)
+        public async Task<ICollection<CourseDto>> GetPagedAsync(CourseFilterDto filterDto)
         {
             ICollection<Course> entities = await _courseRepository.GetPagedAsync(filterDto);
             return _mapper.Map<ICollection<Course>, ICollection<CourseDto>>(entities);

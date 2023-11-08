@@ -13,9 +13,9 @@ namespace WebApi.Controllers
     [Route("[controller]")]
     public class LessonController: ControllerBase
     {
-        private ILessonService _service;
+        private readonly ILessonService _service;
         private readonly ILogger<LessonController> _logger;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public LessonController(ILessonService service, ILogger<LessonController> logger, IMapper mapper)
         {
@@ -25,36 +25,36 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var lessonDto = await _service.GetById(id);
+            var lessonDto = await _service.GetByIdAsync(id);
             return Ok(_mapper.Map<LessonDto, LessonModel>(lessonDto));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CreatingLessonModel creatingLessonDto)
+        public async Task<IActionResult> AddAsync(CreatingLessonModel creatingLessonDto)
         {
-            return Ok(await _service.Create(_mapper.Map<CreatingLessonModel, CreatingLessonDto>(creatingLessonDto)));
+            return Ok(await _service.CreateAsync(_mapper.Map<CreatingLessonModel, CreatingLessonDto>(creatingLessonDto)));
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, UpdatingLessonModel creatingLessonDto)
+        public async Task<IActionResult> EditAsync(int id, UpdatingLessonModel creatingLessonDto)
         {
-            await _service.Update(id, _mapper.Map<UpdatingLessonModel, UpdatingLessonDto>(creatingLessonDto));
+            await _service.UpdateAsync(id, _mapper.Map<UpdatingLessonModel, UpdatingLessonDto>(creatingLessonDto));
             return Ok();
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            await _service.Delete(id);
+            await _service.DeleteAsync(id);
             return Ok();
         }
         
         [HttpGet("list/{page}/{itemsPerPage}")]
-        public async Task<IActionResult> GetList(int page, int itemsPerPage)
+        public async Task<IActionResult> GetListAsync(int page, int itemsPerPage)
         {
-            return Ok(_mapper.Map<List<LessonModel>>(await _service.GetPaged(page, itemsPerPage)));
+            return Ok(_mapper.Map<List<LessonModel>>(await _service.GetPagedAsync(page, itemsPerPage)));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Infrastructure.Repositories.Implementations
     /// <summary>
     /// Репозиторий работы с курсами.
     /// </summary>
-    public class CourseRepository: Repository<Course, int>, ICourseRepository 
+    public class CourseRepository: Repository<Course, int>, ICourseRepository
     {
         public CourseRepository(DatabaseContext context): base(context)
         {
@@ -23,14 +23,10 @@ namespace Infrastructure.Repositories.Implementations
         /// </summary>
         /// <param name="id"> Id сущности. </param>
         /// <returns> Курс. </returns>
-        public override Task<Course> GetAsync(int id)
+        public override async Task<Course> GetAsync(int id)
         {
             var query = Context.Set<Course>().AsQueryable();
-            query = query
-                .Include(c => c.Lessons)
-                .Where(c => c.Id == id && !c.Deleted);
-
-            return query.SingleOrDefaultAsync();
+            return await query.SingleOrDefaultAsync(c=>c.Id == id);
         }
         
         /// <summary>

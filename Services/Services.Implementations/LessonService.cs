@@ -35,7 +35,7 @@ namespace Services.Implementations
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
         /// <returns> ДТО урока. </returns>
-        public async Task<LessonDto> GetById(int id)
+        public async Task<LessonDto> GetByIdAsync(int id)
         {
             var lesson = await _lessonRepository.GetAsync(id);
             return _mapper.Map<Lesson, LessonDto>(lesson);
@@ -46,7 +46,7 @@ namespace Services.Implementations
         /// </summary>
         /// <param name="creatingLessonDto"> ДТО урока. </param>
         /// <returns> Идентификатор. </returns>
-        public async Task<int> Create(CreatingLessonDto creatingLessonDto)
+        public async Task<int> CreateAsync(CreatingLessonDto creatingLessonDto)
         {
             var lesson = _mapper.Map<CreatingLessonDto, Lesson>(creatingLessonDto);
             lesson.CourseId = creatingLessonDto.CourseId;
@@ -67,7 +67,7 @@ namespace Services.Implementations
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
         /// <param name="updatingLessonDto"> ДТО урока. </param>
-        public async Task Update(int id, UpdatingLessonDto updatingLessonDto)
+        public async Task UpdateAsync(int id, UpdatingLessonDto updatingLessonDto)
         {
             var lesson = await _lessonRepository.GetAsync(id);
             if (lesson == null)
@@ -84,7 +84,7 @@ namespace Services.Implementations
         /// Удалить урок.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var lesson = await _lessonRepository.GetAsync(id);
             lesson.Deleted = true; 
@@ -97,7 +97,7 @@ namespace Services.Implementations
         /// <param name="page"> Номер страницы. </param>
         /// <param name="pageSize"> Объем страницы. </param>
         /// <returns> Страница уроков. </returns>
-        public async Task<ICollection<LessonDto>> GetPaged(int page, int pageSize)
+        public async Task<ICollection<LessonDto>> GetPagedAsync(int page, int pageSize)
         {
             ICollection<Lesson> entities = await _lessonRepository.GetPagedAsync(page, pageSize);
             return _mapper.Map<ICollection<Lesson>, ICollection<LessonDto>>(entities);

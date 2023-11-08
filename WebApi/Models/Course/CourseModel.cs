@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Services.Contracts.Lesson;
+using WebApi.Models.Lesson;
 
 namespace WebApi.Models.Course
 {
@@ -26,6 +26,6 @@ namespace WebApi.Models.Course
         /// <summary>
         /// Уроки.
         /// </summary>
-        public List<LessonDto> Lessons { get; set; }
+        public List<LessonModel> Lessons { get; set; }
     }
 }

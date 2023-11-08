@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.EntityFramework
@@ -14,6 +15,8 @@ namespace Infrastructure.EntityFramework
                     .UseSqlite(connectionString));
                     //.UseSqlServer(connectionString));
 
+                    #region health checks
+                    
                     services.AddHealthChecks()
                         .AddDbContextCheck<DatabaseContext>(
                             tags: new[] { "db_ef_healthcheck" },
@@ -22,6 +25,7 @@ namespace Infrastructure.EntityFramework
                                 return await context.Lessons.AnyAsync(token);
                             });
 
+                    #endregion
                     return services;
         }
     }

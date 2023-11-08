@@ -14,32 +14,32 @@ namespace Services.Abstractions
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
         /// <returns> ДТО курса. </returns>
-        Task<CourseDto> GetById(int id);
+        Task<CourseDto> GetByIdAsync(int id);
 
         /// <summary>
         /// Создать курс.
         /// </summary>
         /// <param name="creatingCourseDto"> ДТО создаваемого курса. </param>
-        Task<int> Create(CreatingCourseDto creatingCourseDto);
+        Task<int> CreateAsync(CreatingCourseDto creatingCourseDto);
 
         /// <summary>
         /// Изменить курс.
         /// </summary>
         /// <param name="id"> Иентификатор. </param>
         /// <param name="updatingCourseDto"> ДТО редактируемого курса. </param>
-        Task Update(int id, UpdatingCourseDto updatingCourseDto);
+        Task UpdateAsync(int id, UpdatingCourseDto updatingCourseDto);
 
         /// <summary>
         /// Удалить курс.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
-        Task Delete(int id);
+        Task DeleteAsync(int id);
         
         /// <summary>
         /// Получить постраничный список.
         /// </summary>
         /// <param name="filterDto"> ДТО фильтра. </param>
         /// <returns> Список курсов. </returns>
-        Task<ICollection<CourseDto>> GetPaged(CourseFilterDto filterDto);
+        Task<ICollection<CourseDto>> GetPagedAsync(CourseFilterDto filterDto);
     }
 }
