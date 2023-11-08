@@ -31,6 +31,12 @@ namespace Infrastructure.Repositories.Implementations
             return await query.SingleOrDefaultAsync();
         }
         
+        /// <summary>
+        /// Получить список уроков.
+        /// </summary>
+        /// <param name="page"> Номер страницы. </param>
+        /// <param name="itemsPerPage"> Количество элементов на странице. </param>
+        /// <returns> Список уроков. </returns>
         public async Task<List<Lesson>> GetPagedAsync(int page, int itemsPerPage)
         {
             var query = GetAll().Where(l => !l.Deleted);

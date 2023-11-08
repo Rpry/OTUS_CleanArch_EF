@@ -9,6 +9,12 @@ namespace Services.Repositories.Abstractions
     /// </summary>
     public interface ILessonRepository: IRepository<Lesson, int>
     {
+        /// <summary>
+        /// Получить список уроков.
+        /// </summary>
+        /// <param name="page"> Номер страницы. </param>
+        /// <param name="itemsPerPage"> Количество элементов на странице. </param>
+        /// <returns> Список уроков. </returns>
         Task<List<Lesson>> GetPagedAsync(int page, int itemsPerPage);
     }
 }
