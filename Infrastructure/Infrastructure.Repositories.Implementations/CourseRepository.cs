@@ -38,12 +38,13 @@ namespace Infrastructure.Repositories.Implementations
         {
             var query = GetAll()
                 .Where(c => !c.Deleted)
-                .Include(c => c.Lessons).AsQueryable();
+                //.Include(c => c.Lessons)
+                .AsQueryable();
             if (!string.IsNullOrWhiteSpace(filterDto.Name))
             {
                 query = query.Where(c => c.Name == filterDto.Name);
             }
-
+            
             if (filterDto.Price.HasValue)
             {
                 query = query.Where(c => c.Price == filterDto.Price);

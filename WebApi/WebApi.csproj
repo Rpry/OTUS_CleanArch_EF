@@ -1,20 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <UserSecretsId>237b8f20-547a-4cfa-8c3b-a03ffae330fc</UserSecretsId>
 	</PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="9.0.0" />
+      <PackageReference Include="AutoMapper" Version="12.0.1" />
       <PackageReference Include="MassTransit" Version="7.3.1" />
       <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
       <PackageReference Include="MassTransit.RabbitMQ" Version="7.3.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.14">
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.14" />
+      <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.0" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     </ItemGroup>
 
