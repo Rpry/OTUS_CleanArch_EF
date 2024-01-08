@@ -12,7 +12,8 @@ namespace Infrastructure.EntityFramework
             services.AddDbContext<DatabaseContext>(optionsBuilder
                 => optionsBuilder
                     //.UseLazyLoadingProxies() // lazy loading
-                    .UseSqlite(connectionString));
+                    .UseNpgsql(connectionString));
+                    //.UseSqlite(connectionString));
                     //.UseSqlServer(connectionString));
 
                     #region health checks
