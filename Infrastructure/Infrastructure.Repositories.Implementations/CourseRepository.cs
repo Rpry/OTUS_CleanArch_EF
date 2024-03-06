@@ -26,7 +26,7 @@ namespace Infrastructure.Repositories.Implementations
         public override async Task<Course> GetAsync(int id)
         {
             var query = Context.Set<Course>().AsQueryable();
-            return await query.SingleOrDefaultAsync(c=>c.Id == id);
+            return await query.SingleOrDefaultAsync(c => c.Id == id);
         }
         
         /// <summary>
