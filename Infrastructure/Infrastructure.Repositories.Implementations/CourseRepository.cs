@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Domain.Entities;
@@ -22,8 +23,9 @@ namespace Infrastructure.Repositories.Implementations
         /// Получить сущность по ID.
         /// </summary>
         /// <param name="id"> Id сущности. </param>
+        /// <param name="cancellationToken"></param>
         /// <returns> Курс. </returns>
-        public override async Task<Course> GetAsync(int id)
+        public override async Task<Course> GetAsync(int id, CancellationToken cancellationToken)
         {
             var query = Context.Set<Course>().AsQueryable();
             return await query.SingleOrDefaultAsync(c => c.Id == id);
@@ -37,9 +39,8 @@ namespace Infrastructure.Repositories.Implementations
         public async Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto)
         {
             var query = GetAll()
-                .Where(c => !c.Deleted)
-                //.Include(c => c.Lessons)
-                .AsQueryable();
+                .Where(c => !c.Deleted);
+                //.Include(c => c.Lessons).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filterDto.Name))
             {
                 query = query.Where(c => c.Name == filterDto.Name);

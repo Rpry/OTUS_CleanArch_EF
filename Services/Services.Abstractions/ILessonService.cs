@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Services.Contracts.Lesson;
 
@@ -13,8 +14,9 @@ namespace Services.Abstractions
         /// Получить урок. 
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
+        /// <param name="cancellationToken"> Токен отмены </param>
         /// <returns> ДТО урока. </returns>
-        Task<LessonDto> GetByIdAsync(int id);
+        Task<LessonDto> GetByIdAsync(int id, CancellationToken cancellationToken);
 
         /// <summary>
         /// Создать урок.

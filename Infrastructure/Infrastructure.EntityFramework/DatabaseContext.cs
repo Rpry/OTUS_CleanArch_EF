@@ -32,6 +32,8 @@ namespace Infrastructure.EntityFramework
                 .HasMany(u => u.Lessons)
                 .WithOne(c=> c.Course)
                 .IsRequired();
+            
+            //modelBuilder.Entity<Course>().HasIndex(c=>c.Name);
 
             modelBuilder.Entity<Course>().Property(c => c.Name).HasMaxLength(100);
             modelBuilder.Entity<Lesson>().Property(c => c.Subject).HasMaxLength(100);

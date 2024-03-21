@@ -40,8 +40,9 @@ namespace Services.Repositories.Abstractions
         /// Получить сущность по Id.
         /// </summary>
         /// <param name="id"> Id сущности. </param>
+        /// <param name="cancellationToken"></param>
         /// <returns> Cущность. </returns>
-        Task<T> GetAsync(TPrimaryKey id);
+        Task<T> GetAsync(TPrimaryKey id, CancellationToken cancellationToken);
         
         /// <summary>
         /// Удалить сущность.

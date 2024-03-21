@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Services.Abstractions;
@@ -37,7 +38,7 @@ namespace Services.Implementations
         /// <returns> ДТО курса. </returns>
         public async Task<CourseDto> GetByIdAsync(int id)
         {
-            var course = await _courseRepository.GetAsync(id);
+            var course = await _courseRepository.GetAsync(id, CancellationToken.None);
             return _mapper.Map<Course, CourseDto>(course);
         }
 
@@ -51,10 +52,12 @@ namespace Services.Implementations
             var course = _mapper.Map<CreatingCourseDto, Course>(creatingCourseDto);
             var createdCourse = await _courseRepository.AddAsync(course);
             await _courseRepository.SaveChangesAsync();
+            /*
             await _busControl.Publish(new MessageDto
             {
                 Content = $"Course {createdCourse.Id} with name {createdCourse.Name} is added"
             });
+            */
             return createdCourse.Id;
         }
 
@@ -65,7 +68,7 @@ namespace Services.Implementations
         /// <param name="updatingCourseDto"> ДТО редактируемого курса. </param>
         public async Task UpdateAsync(int id, UpdatingCourseDto updatingCourseDto)
         {
-            var course = await _courseRepository.GetAsync(id);
+            var course = await _courseRepository.GetAsync(id, CancellationToken.None);
             if (course == null)
             {
                 throw new Exception($"Курс с идентфикатором {id} не найден");
@@ -83,7 +86,7 @@ namespace Services.Implementations
         /// <param name="id"> Идентификатор. </param>
         public async Task DeleteAsync(int id)
         {
-            var course = await _courseRepository.GetAsync(id);
+            var course = await _courseRepository.GetAsync(id, CancellationToken.None);
             course.Deleted = true; 
             await _courseRepository.SaveChangesAsync();
         }

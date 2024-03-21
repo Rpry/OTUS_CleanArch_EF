@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Services.Abstractions;
@@ -34,10 +35,11 @@ namespace Services.Implementations
         /// Получить урок.
         /// </summary>
         /// <param name="id"> Идентификатор. </param>
+        /// <param name="cancellationToken"> Токен отмены </param>
         /// <returns> ДТО урока. </returns>
-        public async Task<LessonDto> GetByIdAsync(int id)
+        public async Task<LessonDto> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var lesson = await _lessonRepository.GetAsync(id);
+            var lesson = await _lessonRepository.GetAsync(id, cancellationToken);
             return _mapper.Map<Lesson, LessonDto>(lesson);
         }
 
@@ -68,7 +70,7 @@ namespace Services.Implementations
         /// <param name="updatingLessonDto"> ДТО урока. </param>
         public async Task UpdateAsync(int id, UpdatingLessonDto updatingLessonDto)
         {
-            var lesson = await _lessonRepository.GetAsync(id);
+            var lesson = await _lessonRepository.GetAsync(id, CancellationToken.None);
             if (lesson == null)
             {
                 throw new Exception($"Урок с id = {id} не найден");
@@ -85,7 +87,7 @@ namespace Services.Implementations
         /// <param name="id"> Идентификатор. </param>
         public async Task DeleteAsync(int id)
         {
-            var lesson = await _lessonRepository.GetAsync(id);
+            var lesson = await _lessonRepository.GetAsync(id, CancellationToken.None);
             lesson.Deleted = true; 
             await _lessonRepository.SaveChangesAsync();
         }

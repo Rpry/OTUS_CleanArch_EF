@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Domain.Entities;
@@ -16,19 +18,22 @@ namespace Infrastructure.Repositories.Implementations
         public LessonRepository(DatabaseContext context): base(context)
         {
         }
-        
+
         /// <summary>
         /// Получить сущность по Id.
         /// </summary>
         /// <param name="id"> Id сущности. </param>
+        /// <param name="cancellationToken"> Токен отмены </param>
         /// <returns> Курс. </returns>
-        public override async Task<Lesson> GetAsync(int id)
+        public override async Task<Lesson> GetAsync(int id, CancellationToken cancellationToken)
         {
+            //await Task.Delay(TimeSpan.FromSeconds(20));
             var query = Context.Set<Lesson>().AsQueryable();
             query = query
                 .Where(l => l.Id == id && !l.Deleted);
 
             return await query.SingleOrDefaultAsync();
+            //return await query.SingleOrDefaultAsync(cancellationToken);
         }
         
         /// <summary>

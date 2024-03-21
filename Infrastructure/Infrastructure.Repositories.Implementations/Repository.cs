@@ -41,8 +41,9 @@ namespace Infrastructure.Repositories.Implementations
         /// Получить сущность по Id.
         /// </summary>
         /// <param name="id"> Id сущности. </param>
+        /// <param name="cancellationToken"></param>
         /// <returns> Cущность. </returns>
-        public virtual async Task<T> GetAsync(TPrimaryKey id)
+        public virtual async Task<T> GetAsync(TPrimaryKey id, CancellationToken cancellationToken)
         {
             return await _entitySet.FindAsync((object)id);
         }
