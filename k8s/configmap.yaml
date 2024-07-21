@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapi-configmap 
+  namespace: otus
+data:
+  SOMEPARAM: valueFromConfigMap
+  ConnectionString: Host=postgres.postgresql.svc.cluster.local;Port=5432;Database=otus;UserId=postgres;Password=password
+  ASPNETCORE_ENVIRONMENT: Development
+  ASPNETCORE_URLS: http://+:5100
+  RMQSettings__Host: hawk.rmq.cloudamqp.com
+  RMQSettings__VHost: iatvfquz
+  RMQSettings__Login: iatvfquz
