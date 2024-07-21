@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi-deployment
+  namespace: otus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapi
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: webapi
+    spec:
+      containers:
+        - name: webapi
+	  image: 'ghcr.io/rpry/otus_webapi:2.1'
+          #image: 'webapi:2.1'
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5100
+          envFrom:
+            - configMapRef:
+                name: webapi-configmap
+            - secretRef:
+                name: webapi-secrets
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 5100
+              scheme: HTTP
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /startup
+              port: 5100
+              scheme: HTTP
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
