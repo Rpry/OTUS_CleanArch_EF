@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
         - name: webapi
-	  image: 'ghcr.io/rpry/otus_webapi:2.1'
-          #image: 'webapi:2.1'
+          image: 'ghcr.io/rpry/otus_webapi:2.2'
+          #image: 'webapi:2.4'
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5100
