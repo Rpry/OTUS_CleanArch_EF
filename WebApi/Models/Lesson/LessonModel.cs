@@ -1,4 +1,6 @@
-﻿namespace WebApi.Models.Lesson
+﻿using System;
+
+namespace WebApi.Models.Lesson
 {
     public class LessonModel
     {
@@ -11,5 +13,7 @@
         /// Тема.
         /// </summary>
         public string Subject { get; set; }
+
+        public DateTime DateTime { get; set; }
     }
 }

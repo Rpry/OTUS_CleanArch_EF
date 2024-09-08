@@ -1,4 +1,6 @@
-﻿namespace Services.Contracts.Lesson
+﻿using System;
+
+namespace Services.Contracts.Lesson
 {
     /// <summary>
     /// ДТО редактируемого урока.
@@ -9,5 +11,7 @@
         /// Тема.
         /// </summary>
         public string Subject { get; set; }
+
+        public DateTime DateTime { get; set; }
     }
 }

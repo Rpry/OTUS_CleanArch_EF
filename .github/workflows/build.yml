@@ -1,0 +1,34 @@
+name: Build ASP.NET Core 8
+
+# Определяем, когда запускать этот workflow
+on:
+  push:
+    branches:
+      - main   # Запускаем при push в ветку main
+  pull_request:
+    branches:
+      - main   # Запускаем при pull request в ветку main
+
+# Определяем среду выполнения
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Используем последнюю версию Ubuntu
+
+    steps:
+    # Проверяем код из репозитория
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Устанавливаем .NET SDK (версию укажите ту, которая необходима для ASP.NET Core 8)
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'  # Указываем нужную версию SDK
+
+    # Восстанавливаем зависимости
+    - name: Restore dependencies
+      run: dotnet restore WebApi/WebApi.csproj
+
+    # Сборка проекта
+    - name: Build project
+      run: dotnet build WebApi/WebApi.csproj --configuration Release --no-restore

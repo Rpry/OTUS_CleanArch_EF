@@ -30,6 +30,6 @@ namespace Domain.Entities
         /// </summary>
         public bool Deleted { get; set; }
         
-        //public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

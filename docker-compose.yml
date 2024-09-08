@@ -1,0 +1,28 @@
+services:
+
+  postgres:
+
+    image: postgres:14-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=otus
+
+  # web:
+
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5101:5101"
+  #   environment:
+  #     "ASPNETCORE_ENVIRONMENT": "Development"
+  #     "ASPNETCORE_URLS": "http://+:5100"
+
+volumes:
+  pg-data:
