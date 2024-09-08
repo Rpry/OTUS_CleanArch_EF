@@ -26,7 +26,7 @@ namespace Infrastructure.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);            
+            base.OnModelCreating(modelBuilder);
             
             modelBuilder.Entity<Course>()
                 .HasMany(u => u.Lessons)

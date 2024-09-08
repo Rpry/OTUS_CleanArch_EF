@@ -16,7 +16,7 @@ COPY ["Services/Services.Contracts/Services.Contracts.csproj", "Services/Service
 COPY ["Services/Services.Abstractions/Services.Abstractions.csproj", "Services/Services.Abstractions/"]
 COPY ["Services/Services.Implementations/Services.Implementations.csproj", "Services/Services.Implementations/"]
 RUN dotnet restore "WebApi/WebApi.csproj"
-COPY ../ .
+COPY . .
 WORKDIR "/src/WebApi"
 RUN dotnet build "WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
