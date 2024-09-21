@@ -23,6 +23,14 @@ namespace Services.Abstractions
         Task<int> CreateAsync(CreatingCourseDto creatingCourseDto);
 
         /// <summary>
+        /// Обновить курс и состав уроков.
+        /// Для показа unit of work.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <param name="updatingCourseWithLessonsDto"></param>
+        Task UpdatingWithLessonsAsync(int id, UpdatingCourseWithLessonsDto updatingCourseWithLessonsDto);        
+
+        /// <summary>
         /// Изменить курс.
         /// </summary>
         /// <param name="id"> Иентификатор. </param>

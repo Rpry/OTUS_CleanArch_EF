@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Services.Abstractions;
 using AutoMapper;
-using CommonNamespace;
 using Domain.Entities;
 using MassTransit;
 using Services.Contracts.Course;
+using Services.Contracts.Lesson;
 
 namespace Services.Implementations
 {
@@ -19,16 +19,22 @@ namespace Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly ICourseRepository _courseRepository;
+        private readonly ILessonRepository _lessonRepository;
         private readonly IBusControl _busControl;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CourseService(
             IMapper mapper,
             ICourseRepository courseRepository,
+            ILessonRepository lessonRepository,
+            IUnitOfWork unitOfWork,
             IBusControl busControl)
         {
             _mapper = mapper;
             _courseRepository = courseRepository;
+            _lessonRepository = lessonRepository;
             _busControl = busControl;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -59,6 +65,38 @@ namespace Services.Implementations
             });
             */
             return createdCourse.Id;
+        }
+        
+        /// <summary>
+        /// Обновить курс и состав уроков.
+        /// Для показа unit of work.
+        /// </summary>
+        /// <param name="updatingCourseWithLessonsDto"> ДТО редактируемого курса. </param>
+        /// <param name="id"> Id </param>
+        public async Task UpdatingWithLessonsAsync(int id, UpdatingCourseWithLessonsDto updatingCourseWithLessonsDto)
+        {
+            //var course = await _unitOfWork.CourseRepository.GetAsync(id, CancellationToken.None);
+            var course = await _courseRepository.GetAsync(id, CancellationToken.None);
+            if (course == null)
+            {
+                throw new Exception($"Курс с идентфикатором {id} не найден");
+            }
+
+            course.Name = updatingCourseWithLessonsDto.Name;
+            course.Price = updatingCourseWithLessonsDto.Price;
+            _courseRepository.Update(course);
+            await _courseRepository.SaveChangesAsync();
+            //_unitOfWork.CourseRepository.Update(course);
+            var lessons = _mapper.Map<IEnumerable<AttachingLessonDto>, IEnumerable<Lesson>>(updatingCourseWithLessonsDto.Lessons);
+            foreach (var lesson in lessons)
+            {
+                lesson.CourseId = 100; //Не существует
+                await _lessonRepository.AddAsync(lesson);
+                //await _unitOfWork.LessonRepository.AddAsync(lesson);
+            }
+            
+            await _lessonRepository.SaveChangesAsync();
+            //await _unitOfWork.SaveChangesAsync();
         }
 
         /// <summary>

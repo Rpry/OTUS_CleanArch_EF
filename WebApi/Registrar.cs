@@ -37,7 +37,8 @@ namespace WebApi
         {
             serviceCollection
                 .AddTransient<ICourseRepository, CourseRepository>()
-                .AddTransient<ILessonRepository, LessonRepository>();
+                .AddTransient<ILessonRepository, LessonRepository>()
+                .AddTransient<IUnitOfWork, UnitOfWork>();
             return serviceCollection;
         }
     }

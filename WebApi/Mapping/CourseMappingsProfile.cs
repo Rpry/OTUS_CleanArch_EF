@@ -15,6 +15,7 @@ namespace WebApi.Mapping
             CreateMap<CreatingCourseModel, CreatingCourseDto>();
             CreateMap<UpdatingCourseModel, UpdatingCourseDto>();
             CreateMap<CourseFilterModel, CourseFilterDto>();
+            CreateMap<UpdatingCourseWithLessonsModel, UpdatingCourseWithLessonsDto>();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace WebApi.Mapping
             CreateMap<LessonDto, LessonModel>();
             CreateMap<CreatingLessonModel, CreatingLessonDto>();
             CreateMap<UpdatingLessonModel, UpdatingLessonDto>();
+            CreateMap<AttachingLessonModel, AttachingLessonDto>();
         }
     }
 }

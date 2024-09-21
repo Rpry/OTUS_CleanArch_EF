@@ -72,7 +72,6 @@ namespace Infrastructure.Repositories.Implementations
         {
             return await GetAll().ToListAsync(cancellationToken);
         }
-        
 
         #endregion
         

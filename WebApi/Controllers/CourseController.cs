@@ -43,6 +43,14 @@ namespace WebApi.Controllers
             return Ok();
         }
         
+        
+        [HttpPut("WithLessons")]
+        public async Task<IActionResult> EditWithLessonsAsync(int id, UpdatingCourseWithLessonsModel courseModel)
+        {
+            await _service.UpdatingWithLessonsAsync(id, _mapper.Map<UpdatingCourseWithLessonsModel, UpdatingCourseWithLessonsDto>(courseModel));
+            return Ok();
+        }
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

@@ -1,6 +1,7 @@
+using System;
+using Domain.Entities;
 using Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,7 +15,9 @@ namespace WebApi
             using (var scope = host.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+                //db.Database.EnsureDeletedAsync();
                 //db.Database.Migrate();
+                //Seed(scope.ServiceProvider);
             }
             host.Run();
         }
@@ -28,5 +31,19 @@ namespace WebApi
                     {
                     });
                 });
+
+        public static void Seed(IServiceProvider serviceProvider)
+        {
+            using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = scope.ServiceProvider.GetService<DatabaseContext>();
+                var course = new Course()
+                {
+                    //...
+                };
+                context.SaveChanges();
+            }
+        }
+        
     }
 }
