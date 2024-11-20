@@ -39,6 +39,7 @@ namespace Infrastructure.Repositories.Implementations
         public async Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto)
         {
             var query = GetAll()
+                //.ToList().AsQueryable()
                 .Where(c => !c.Deleted);
                 //.Include(c => c.Lessons).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filterDto.Name))
