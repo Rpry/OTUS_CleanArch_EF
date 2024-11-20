@@ -12,7 +12,9 @@ namespace Domain.Entities
         /// </summary>
         public int Id { get; set; }
         
-        /// <summary> Тема. </summary>
+        /// <summary>
+        /// Тема.
+        /// </summary>
         public string Subject { get; set; }
         
         /// <summary>
