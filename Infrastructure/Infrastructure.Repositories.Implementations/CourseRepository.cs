@@ -39,7 +39,7 @@ namespace Infrastructure.Repositories.Implementations
         public async Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto)
         {
             var query = GetAll()
-                //.ToList().AsQueryable()
+                //.ToList()
                 .Where(c => !c.Deleted);
                 //.Include(c => c.Lessons).AsQueryable();
             if (!string.IsNullOrWhiteSpace(filterDto.Name))
@@ -56,7 +56,9 @@ namespace Infrastructure.Repositories.Implementations
                 .Skip((filterDto.Page - 1) * filterDto.ItemsPerPage)
                 .Take(filterDto.ItemsPerPage);
 
-            return await query.ToListAsync();
+            
+            return query.ToList();
+            
         }
     }
 }

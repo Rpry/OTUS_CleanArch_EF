@@ -31,7 +31,7 @@ namespace Domain.Entities
         /// Удалено.
         /// </summary>
         public bool Deleted { get; set; }
-        
+
         //public DateTime DateTime { get; set; }
     }
 }

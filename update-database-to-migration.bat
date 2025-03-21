@@ -1,4 +1,4 @@
 ﻿
-dotnet ef database update Initial --startup-project WebApi/WebApi.csproj --project Infrastructure\Infrastructure.EntityFramework\Infrastructure.EntityFramework.csproj --context DatabaseContext
+dotnet ef database update 0 --startup-project WebApi/WebApi.csproj --project Infrastructure\Infrastructure.EntityFramework\Infrastructure.EntityFramework.csproj --context DatabaseContext
 
 PAUSE

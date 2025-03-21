@@ -2,6 +2,7 @@ using System;
 using Domain.Entities;
 using Infrastructure.EntityFramework;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -41,6 +42,7 @@ namespace WebApi
                 {
                     //...
                 };
+                context.Courses.Add(course);
                 context.SaveChanges();
             }
         }

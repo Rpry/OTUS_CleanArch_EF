@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Services.Abstractions;
 using AutoMapper;
+using CommonNamespace;
 using Domain.Entities;
 using MassTransit;
 using Services.Contracts.Course;

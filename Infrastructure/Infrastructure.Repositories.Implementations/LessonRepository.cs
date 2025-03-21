@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace Infrastructure.Repositories.Implementations
             query = query
                 .Where(l => l.Id == id && !l.Deleted);
 
-            return await query.SingleOrDefaultAsync();
-            //return await query.SingleOrDefaultAsync(cancellationToken);
+            //return await query.SingleOrDefaultAsync();
+            return await query.SingleOrDefaultAsync(cancellationToken);
         }
         
         /// <summary>
