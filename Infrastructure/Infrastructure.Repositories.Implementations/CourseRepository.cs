@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Domain.Entities;
 using Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using Services.Contracts.Course;
 
 namespace Infrastructure.Repositories.Implementations
@@ -59,6 +64,24 @@ namespace Infrastructure.Repositories.Implementations
             
             return query.ToList();
             
+        }
+
+        public async Task<List<CourseInfo>> GetCourseInfosAsync(string fieldsToSelect)
+        {
+            var listOfFieldsToSelect = fieldsToSelect.Split(",");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendJoin(",", listOfFieldsToSelect.Select(s => $"\"{s}\""));
+            PropertyInfo[] properties = typeof(CourseInfo).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in properties)
+            {
+                if(!listOfFieldsToSelect.Contains(property.Name))
+                {
+                    stringBuilder.Append($", NULL as \"{property.Name}\"");
+                }
+            }
+            var courseInfos = await Context.Database.SqlQueryRaw<CourseInfo>($"select {stringBuilder.ToString()} from \"Courses\"").ToListAsync();
+            
+            return courseInfos;
         }
     }
 }

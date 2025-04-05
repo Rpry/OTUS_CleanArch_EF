@@ -64,5 +64,11 @@ namespace WebApi.Controllers
             var filterDto = _mapper.Map<CourseFilterModel, CourseFilterDto>(filterModel);
             return Ok(_mapper.Map<List<CourseModel>>(await _service.GetPagedAsync(filterDto)));
         }
+        
+        [HttpPost("info/{fieldsToSelect}")]
+        public async Task<IEnumerable<CourseInfoModel>> GetCourseInfosAsync(string fieldsToSelect)
+        {
+            return _mapper.Map<List<CourseInfoModel>>(await _service.GetCourseInfosAsync(fieldsToSelect));
+        }
     }
 }

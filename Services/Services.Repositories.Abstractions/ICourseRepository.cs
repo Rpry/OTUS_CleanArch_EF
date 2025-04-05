@@ -16,5 +16,10 @@ namespace Services.Repositories.Abstractions
         /// <param name="filterDto"> ДТО фильтра. </param>
         /// <returns> Список курсов. </returns>
         Task<List<Course>> GetPagedAsync(CourseFilterDto filterDto);
+
+        /// <summary>
+        /// Получить постраничный список.
+        /// </summary>
+        Task<List<CourseInfo>> GetCourseInfosAsync(string fieldsToSelect);
     }
 }

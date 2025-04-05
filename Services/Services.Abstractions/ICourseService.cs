@@ -49,5 +49,7 @@ namespace Services.Abstractions
         /// <param name="filterDto"> ДТО фильтра. </param>
         /// <returns> Список курсов. </returns>
         Task<ICollection<CourseDto>> GetPagedAsync(CourseFilterDto filterDto);
+
+        Task<IEnumerable<CourseInfoDto>> GetCourseInfosAsync(string fieldsToSelect);
     }
 }

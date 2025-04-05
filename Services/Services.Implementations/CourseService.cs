@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Services.Repositories.Abstractions;
 using Services.Abstractions;
 using AutoMapper;
-using CommonNamespace;
 using Domain.Entities;
 using MassTransit;
 using Services.Contracts.Course;
@@ -139,6 +138,12 @@ namespace Services.Implementations
         {
             ICollection<Course> entities = await _courseRepository.GetPagedAsync(filterDto);
             return _mapper.Map<ICollection<Course>, ICollection<CourseDto>>(entities);
+        }
+        
+        public async Task<IEnumerable<CourseInfoDto>> GetCourseInfosAsync(string fieldsToSelect)
+        {
+            var entities = await _courseRepository.GetCourseInfosAsync(fieldsToSelect);
+            return _mapper.Map<IEnumerable<CourseInfo>, IEnumerable<CourseInfoDto>>(entities);
         }
     }
 }
