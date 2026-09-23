@@ -61,9 +61,7 @@ namespace Infrastructure.Repositories.Implementations
                 .Skip((filterDto.Page - 1) * filterDto.ItemsPerPage)
                 .Take(filterDto.ItemsPerPage);
 
-            
             return query.ToList();
-            
         }
 
         public async Task<List<CourseInfo>> GetCourseInfosAsync(string fieldsToSelect)

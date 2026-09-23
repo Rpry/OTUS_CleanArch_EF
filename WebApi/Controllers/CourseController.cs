@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Services.Abstractions;
 using AutoMapper;
@@ -27,6 +29,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
+            Console.WriteLine(SynchronizationContext.Current);
             return Ok(_mapper.Map<CourseModel>(await _service.GetByIdAsync(id)));
         }
 
