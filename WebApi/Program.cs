@@ -17,7 +17,7 @@ namespace WebApi
             {
                 var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
                 //db.Database.EnsureDeletedAsync().GetAwaiter().GetResult();
-                //db.Database.Migrate();
+                db.Database.Migrate();
                 //Seed(scope.ServiceProvider);
             }
             host.Run();
